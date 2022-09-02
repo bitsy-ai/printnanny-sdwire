@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "PrintNanny")(type "KiCad")(uri "${KIPRJMOD}/footprints/PrintNanny.pretty")(options "")(descr ""))
+)
