@@ -1,0 +1,8 @@
+{
+  "name": "printnanny-sdwire",
+  "version-string": "latest",
+  "dependencies": [
+    "libftdi1",
+    "libpopt"
+  ]
+}
