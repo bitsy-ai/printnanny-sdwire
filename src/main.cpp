@@ -23,7 +23,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include <chrono>
+#include <thread>
 
 #include <libftdi1/ftdi.h>
 
@@ -412,7 +413,7 @@ int powerOff(struct ftdi_context *ftdi, unsigned char *pins) {
         return EXIT_FAILURE;
 
     // Wait for 100ms
-    usleep(DELAY_100MS);
+    std::this_thread::sleep_for(std::chrono::microseconds(DELAY_100MS));
 
     // Turn off the coil
     *pins |= POWER_SW_OFF;
@@ -430,7 +431,7 @@ int powerOn(struct ftdi_context *ftdi, unsigned char *pins) {
         return EXIT_FAILURE;
 
     // Wait for 100ms
-    usleep(DELAY_100MS);
+    std::this_thread::sleep_for(std::chrono::microseconds(DELAY_100MS));
 
     // Turn off the coil
     *pins |= POWER_SW_ON;
@@ -467,7 +468,7 @@ int doPower(bool off, bool on, CCOptionValue options[]) {
     }
 
     // Wait for specified period in ms
-    usleep(period * 1000);
+    std::this_thread::sleep_for(std::chrono::microseconds(period * 1000));
 
     ret = powerOn(ftdi, &pins);
     if (on && (ret != EXIT_SUCCESS)) {
@@ -506,10 +507,10 @@ int selectTarget(Target target, CCOptionValue options[]) {
         if (target == T_DUT) {
             pinState &= ~UM_DEVICE_PWR;
             ret |= ftdi_set_bitmode(ftdi, pinState, BITMODE_CBUS);
-            usleep(DELAY_500MS);
+            std::this_thread::sleep_for(std::chrono::microseconds(DELAY_500MS));
             pinState |= UM_DEVICE_PWR;
             ret |= ftdi_set_bitmode(ftdi, pinState, BITMODE_CBUS);
-            usleep(DELAY_100MS);
+            std::this_thread::sleep_for(std::chrono::microseconds(DELAY_100MS));
             pinState |= UM_DUT_LED;
             pinState &= ~UM_SOCKET_SEL;
             pinState &= ~UM_GP_LED;
@@ -518,10 +519,10 @@ int selectTarget(Target target, CCOptionValue options[]) {
             pinState &= ~UM_DUT_LED;
             pinState &= ~UM_DEVICE_PWR;
             ret |= ftdi_set_bitmode(ftdi, pinState, BITMODE_CBUS);
-            usleep(DELAY_500MS);
+            std::this_thread::sleep_for(std::chrono::microseconds(DELAY_500MS));
             pinState |= UM_DEVICE_PWR;
             ret |= ftdi_set_bitmode(ftdi, pinState, BITMODE_CBUS);
-            usleep(DELAY_100MS);
+            std::this_thread::sleep_for(std::chrono::microseconds(DELAY_100MS));
             pinState |= UM_SOCKET_SEL;
             pinState |= UM_GP_LED;
             ret |= ftdi_set_bitmode(ftdi, pinState, BITMODE_CBUS);
