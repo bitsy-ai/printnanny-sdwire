@@ -28,6 +28,10 @@
 
 #include <libftdi1/ftdi.h>
 
+#ifdef _MSC_VER
+#define strcasecmp _stricmp
+#endif
+
 #define PRODUCT 0x6001
 #define SAMSUNG_VENDOR 0x04e8
 
