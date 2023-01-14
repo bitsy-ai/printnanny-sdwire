@@ -12,7 +12,9 @@ message(WARNING "Found POPT includes: ${LIBPOPT_INCLUDE_DIRS}")
 find_library(LIBPOPT popt REQUIRED)
 find_library(LIBFTDI1 ftdi1 REQUIRED)
 find_library(LIBUSB usb-1.0)
-find_library(LIBCONFUSE libconfuse)
+# vcpkg installs it as liblibconfuse.a, so search for both just in case
+find_library(LIBCONFUSE confuse)
+find_library(LIBLIBCONFUSE libconfuse)
 
 message(WARNING "Found libraries: ${LIBPOPT} ${LIBFTDI1} ${LIBUSB} ${LIBCONFUSE}")
 
@@ -22,4 +24,14 @@ set_property(TARGET sdwire PROPERTY CXX_STANDARD 17)
 target_sources(sdwire PRIVATE src/main.cpp)
 
 target_include_directories(sdwire PRIVATE ${LIBFTDI1_INCLUDE_DIRS} ${LIBPOPT_INCLUDE_DIRS})
-target_link_libraries(sdwire PRIVATE ${LIBUSB} ${LIBFTDI1} ${LIBCONFUSE} ${LIBPOPT})
+
+target_link_libraries(sdwire PRIVATE ${LIBFTDI1} ${LIBPOPT})
+if(NOT LIBUSB STREQUAL "LIBUSB-NOTFOUND")
+    target_link_libraries(sdwire PRIVATE ${LIBUSB})
+endif()
+if(NOT LIBCONFUSE STREQUAL "LIBCONFUSE-NOTFOUND")
+    target_link_libraries(sdwire PRIVATE ${LIBCONFUSE})
+endif()
+if(NOT LIBLIBCONFUSE STREQUAL "LIBLIBCONFUSE-NOTFOUND")
+    target_link_libraries(sdwire PRIVATE ${LIBLIBCONFUSE})
+endif()
