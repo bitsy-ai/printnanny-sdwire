@@ -11,8 +11,8 @@ message(WARNING "Found POPT includes: ${LIBPOPT_INCLUDE_DIRS}")
 
 find_library(LIBPOPT popt REQUIRED)
 find_library(LIBFTDI1 ftdi1 REQUIRED)
-find_library(LIBUSB usb-1.0 REQUIRED)
-find_library(LIBCONFUSE libconfuse REQUIRED)
+find_library(LIBUSB usb-1.0)
+find_library(LIBCONFUSE libconfuse)
 
 message(WARNING "Found libraries: ${LIBPOPT} ${LIBFTDI1} ${LIBUSB} ${LIBCONFUSE}")
 
