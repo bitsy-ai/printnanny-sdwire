@@ -707,7 +707,7 @@ int parseArguments(int argc, const char **argv, CCCommand *cmd, int *arg, char *
             { "vendor", 'x', POPT_ARG_INT, &options[CCO_Vendor].argn, 'x', "use device with given vendor id", NULL },
             { "product", 'a', POPT_ARG_INT, &options[CCO_Product].argn, 'a', "use device with given product id", NULL },
             { "invert", 'n', POPT_ARG_NONE, NULL, 'n', "invert bits for --pins command", NULL },
-            POPT_AUTOHELP
+            // POPT_AUTOHELP
             { NULL, 0, 0, NULL, 0, NULL, NULL }
     };
 
