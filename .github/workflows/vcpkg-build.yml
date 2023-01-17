@@ -60,3 +60,8 @@ jobs:
           #testPresetAdditionalArgs: "[`--config`, `Release`]"
         env:
           VCPKG_FORCE_SYSTEM_BINARIES: 1
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: sdwire
+          path: ./builds/ninja-multiconfiguration-vcpkg/Release/sdwire*
